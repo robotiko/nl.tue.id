@@ -109,6 +109,12 @@ public class Oogway implements Cloneable, OConstants {
 		dash = new ODash(applet);
 
 	}
+	
+	public void backward(float distance, String svg){
+	    beginPath(svg);
+	    backward(distance);
+	    endPath();
+	}
 
 	/**
 	 * Move Oogway backward.
@@ -379,6 +385,12 @@ public class Oogway implements Cloneable, OConstants {
 	 */
 	public void fd(float distance) {
 		forward(distance);
+	}
+	
+	public void forward(float distance, String svg){
+	    beginPath(svg);
+	    forward(distance);
+	    endPath();
 	}
 
 	/**
