@@ -54,7 +54,7 @@ void tesselate(float scale) {
   for (int i=0; i<4; i++) {
     o.pushState();
     for (int j=0; j<4; j++) {
-      setOfSix(scale);
+      groupPositions(scale);
       o.shift(hHeading, hDistance);
       if(j%2==0) o.shift(vHeading, vDistance);
     }
@@ -108,7 +108,7 @@ void drawPiece(float scale) {
   if(annotate) drawArrow(scale);
 }
 
-void setOfSix(float scale){
+void groupPositions(float scale){
   o.pushState();
   
   drawPiece(scale);

@@ -9,11 +9,15 @@ boolean annotate = true;
 Oogway o;
 PFont font;
 
-//latest A, B, C, D coordinates
-float ax, ay, bx, by, cx, cy, dx, dy;
-float ab = 100;
-float ad = 100;
-float degreeDAB = 80;
+//latest vertex coordinates
+float Ax, Ay, Bx, By, Cx, Cy, Dx, Dy;
+float AB = 100;
+float AD = 125;
+float angleBAD = 75;
+
+//for tesselation the sets
+float hDistance, hHeading;
+float vDistance, vHeading;
 
 void setup() {
   size(XSIZE, YSIZE);
@@ -27,14 +31,17 @@ void setup() {
 
 void draw() {
   background(255);
-  o.setPosition(o.xcor(), o.ycor() + 250);
-  tesselate(1);
-
-  o.home();
-  o.setPosition(200, o.ycor()+200);
-  abcd(2);
+  showGrid();
   
-  if(annotate) drawDashlines(2);  
+  o.left(15); 
+  
+  o.setPosition(600, 480);
+  tesselate(0.8);
+
+  o.setPosition(200, 600);
+  drawPiece(1.5);
+  
+  if(annotate) drawPoints();
   if(annotate) drawIntro();
 
   endRecord();
@@ -42,101 +49,69 @@ void draw() {
 
 void tesselate(float scale) {
   o.pushState();
-  for (int i = 0; i<3; i++) {
-    abcd(scale);
-    float x = dx, y = dy;   
-    for (int j = 1; j<3; j++) {
-      o.setPosition(bx, by);
-      abcd(scale);
+  
+  for(int i=0; i<3; i++){
+    o.pushState();
+    for(int j=0; j<4; j++){
+    groupPositions(scale);
+    o.shift(hHeading, hDistance);
     }
-    o.setPosition(x,y);
+    o.popState();
+    o.shift(vHeading, vDistance);
   }
+  
   o.popState();
 }
 
-void abcd(float scale) {
+void drawPiece(float scale) {
   o.pushState();
   
-  //arbitrary line AB
-  ax = o.xcor(); ay = o.ycor();
-  o.beginPath("AB.svg");  o.forward(ab*scale);  o.endPath();
-  bx = o.xcor(); by = o.ycor();
+  //Shift the arbitrary line AB to DC, such that ABCD are the corners of a parallelogram 
+  //(Translation vector AD).
   
-  //shift AB to DC
-  o.setPosition(ax, ay);
-  o.left(degreeDAB);
-  o.up(); o.forward(ad*scale); o.down();
-  dx = o.xcor(); dy = o.ycor();
-  o.right(degreeDAB);
-  o.beginPath("AB.svg");  o.forward(ab*scale);  o.endPath();
-  cx = o.xcor(); cy = o.ycor();
+  //AB
+  o.remember("A");
+  Ax = o.xcor(); Ay = o.ycor();
+  o.beginPath("AB.svg");  o.forward(AB*scale);  o.endPath();
+  Bx = o.xcor(); By = o.ycor();
   
-  //Another arbitrary line from A to D
-  o.setPosition(ax, ay);
-  o.left(degreeDAB);
-  o.beginPath("AD.svg");  o.forward(ad*scale);  o.endPath();
+  //DC
+  o.recall("A");
+  o.shift(o.heading()-angleBAD, AD*scale);
+  Dx = o.xcor(); Dy = o.ycor();
+  o.beginPath("AB.svg");  o.forward(AB*scale);  o.endPath();
+  Cx = o.xcor(); Cy = o.ycor();
   
-  //shift AD to BC;
-  o.setPosition(bx, by);
-  o.beginPath("AD.svg");  o.forward(ad*scale);  o.endPath();
+  //Draw another arbitrary line from A to D and shift it into the  
+  //position BC (translation vector AB).
+  
+  //AD 
+  o.setPosition(Ax, Ay);
+  o.setHeading(o.towards(Dx, Dy));
+  o.beginPath("AD.svg");  o.forward(o.distance(Dx, Dy));  o.endPath(); 
+
+  
+  //BC
+  o.setPosition(Bx, By);
+  o.setHeading(o.towards(Cx, Cy));
+  o.beginPath("AD.svg");  o.forward(o.distance(Cx, Cy));  o.endPath(); 
 
   o.popState();
   
   if(annotate) drawArrow(scale);
 }
 
-
-void drawArrow(float scale){
-  pushStyle();
+void groupPositions(float scale){
   o.pushState();
-  fill(255,0,0);
-  o.setPenColor(255,0,0);
-  o.setPosition((ax+bx+cx+dx)/4, (ay+by+cy+dy)/4);
-  o.right(180-degreeDAB);
-  o.backward(10*scale);
-  o.forward(20*scale);
-  o.stamp(8*scale);  
-  o.popState();
-  popStyle();
-}  
-
-void drawIntro(){
-  pushStyle();
-     textFont(font,32);
-     fill(0);
-     text("No.1, Basic Type TTTT",200,50);
-     textFont(font,16);
-     text("Shift the arbitrary line AB to DC, such that ABCD are the corners of a parallelogram "
-    + "translation vector AD). Draw another arbitrary line from A to D and shift it into the position "
-    + "BC (translation vector AB)."
-         , 200, 100,700,200); 
-     text("Number of arbitrary lines: 2\nNetwork: 4444\n1 Position."
-         , 650, 200,700,100); 
-         popStyle();
-}
-
-void drawDashlines(float scale){
-  pushStyle();
-  o.pushState();
-  textFont(font,16);
-  fill(255,0,55);
-  o.setPenColor(0,0,255);
   
-  o.setPosition(ax, ay);
-  ellipse(o.xcor(), o.ycor(), 10 , 10);
-  text("A", o.xcor()+10, o.ycor());
-  o.left(degreeDAB);   
-  o.beginDash(); o.forward(ad*scale); o.endDash();
-  text("D", o.xcor()+10, o.ycor());
-  ellipse(o.xcor(), o.ycor(), 10 , 10);
+  drawPiece(scale);
   
-  o.setPosition(bx, by);
-  ellipse(o.xcor(), o.ycor(), 10 , 10);
-  text("B", o.xcor()+10, o.ycor());
-  o.beginDash(); o.forward(ad*scale); o.endDash();
-  text("C", o.xcor()+10, o.ycor());
-  ellipse(o.xcor(), o.ycor(), 10 , 10);
+  hHeading = o.towards(Bx, By);
+  hDistance = o.distance(Bx, By);
+  
+  vHeading = 180+o.towards(Dx, Dy);
+  vDistance = o.distance(Dx, Dy);
+  
   o.popState();
-  popStyle();
 }
 

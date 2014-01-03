@@ -49,7 +49,7 @@ void tesselate(float scale) {
   for (int i=0; i<3; i++) {
     o.pushState();
     for (int j=0; j<3; j++) {
-      setOfFour(scale);
+      groupPositions(scale);
       o.shift(hHeading, hDistance);
     }
     o.popState();
@@ -96,7 +96,7 @@ void drawPiece(float scale) {
 
 
 
-void setOfFour(float scale){
+void groupPositions(float scale){
   o.pushState();
   
   drawPiece(scale);
