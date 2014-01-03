@@ -5,6 +5,7 @@
  Shifu: _No. Oogway was wiser than us all._
 
 ---
+
 Oogway, making ideas from the Turtle graphics available in Processing. Oogway is named after the master in the Kung Fu Panda (http://kungfupanda.wikia.com/wiki/Oogway)
 
 Oogway is free software: you can redistribute it and/or modify
@@ -179,14 +180,14 @@ All the traces left by the oogway on the canvas between beginReflection() and en
 	pd()
 	down()
 
-Pull the pen down ¨C drawing when moving.
+Pull the pen down ï¿½C drawing when moving.
 
 ### penUp | pu | up
     penUp()
     pu()
     up()
 
-Pull the pen up ¨C no drawing when moving.
+Pull the pen up ï¿½C no drawing when moving.
 
 ### penSize
     penSize()
@@ -202,7 +203,7 @@ Set the size of the pen. It changes the thickness of the trace.
 
 ### isDown
     isDown()
-Return `true` if pen is down, `false` if it¡¯s up.
+Return `true` if pen is down, `false` if itï¿½ï¿½s up.
 
 ## Color contol
 ### setPenColor
