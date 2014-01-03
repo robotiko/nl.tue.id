@@ -1,8 +1,8 @@
 ---
 
-Po: _Okay. So like, Oogway was just a crazy old turtle after all?_
+* Po: _Okay. So like, Oogway was just a crazy old turtle after all?_
 
-Shifu: _No. Oogway was wiser than us all._
+* Shifu: _No. Oogway was wiser than us all._
 
 ---
 
