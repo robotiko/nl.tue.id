@@ -164,7 +164,7 @@ void drawIntro(){
   pushStyle();
      textFont(font,32);
      fill(0);
-     text("Nr.9, Basic Type C3C3C3C3C3C3",200,50);
+     text("No.9, Basic Type C3C3C3C3C3C3",200,50);
      textFont(font,16);
      text("Turn the arbitrary line AB by 120 degrees into the position AC."
     + " Turn another arbitrary line CD(D arbitrary) around D by 120 degrees into the position DE."

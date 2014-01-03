@@ -160,7 +160,7 @@ void drawIntro(){
   pushStyle();
      textFont(font,32);
      fill(0);
-     text("Nr.11, Basic Type CC6C6",200,50);
+     text("No.11, Basic Type CC6C6",200,50);
      textFont(font,16);
      text("Turn the arbitrary line AB around A by 60 degrees into the position AC; "
     + "connect C to B by a C-line. "

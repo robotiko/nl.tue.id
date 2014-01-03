@@ -333,13 +333,13 @@ void A2Ddashed(Oogway o, int scalefactor, PVector D) {
 
 void drwIntro() {
   textFont(font, 32);
-  text("Nr.1, Basic Type TTTT", 200, 50);
+  text("No.1, Basic Type TTTT", 200, 50);
   textFont(font, 16);
   text("Shift the arbitrary line AB to DC, such that ABCD are the corners of a parallelogram (translation vector AD). Draw another arbitrary line from A to D and shift it into the position BC (translation vector AB)."
     , 200, 100, 700, 200); 
   text("Network 4444,"
     , 650, 200, 700, 100); 
-  text("1 positioning."
+  text("1 position."
     , 650, 220, 700, 100);
 }
 

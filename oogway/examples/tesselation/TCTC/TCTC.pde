@@ -157,7 +157,7 @@ void drawIntro(){
   pushStyle();
      textFont(font,32);
      fill(0);
-     text("Nr.5, Basic Type TCTC",200,50);
+     text("No.5, Basic Type TCTC",200,50);
      textFont(font,16);
      text("Shift the arbitrary line AB to DC so that drawPiece are the corners of a parallelogram. Connect A to D using a C-line."
     + "Place a second (independent of the previous) C-line (same end point distances) from B to C. "

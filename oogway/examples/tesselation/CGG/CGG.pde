@@ -202,7 +202,7 @@ void drawIntro(){
   pushStyle();
   fill(0);
      textFont(font,32);
-     text("Nr.21, Basic Type CGG",200,50);
+     text("No.21, Basic Type CGG",200,50);
      textFont(font,16);
      text("Bring the arbitrary line AB by glide reflection until it connects to the position BC, where the "
      +"angle ABC is arbitrary (axis of glide reflection IH parallel to AC at equal distance from A "

@@ -153,7 +153,7 @@ void drawIntro(){
   pushStyle();
      textFont(font,32);
      fill(0);
-     text("Nr.8, Basic Type C3C3C3C3",200,50);
+     text("No.8, Basic Type C3C3C3C3",200,50);
      textFont(font,16);
      text("Turn the arbitrary line AB around A over 120 degrees into the position AC."
     + " Let D be the refection-point of A with respect to the line through B and C."

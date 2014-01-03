@@ -183,7 +183,7 @@ void drawIntro(){
   pushStyle();
      textFont(font,32);
      fill(0);
-     text("Nr.7, Basic Type TCCTCC",200,50);
+     text("No.7, Basic Type TCCTCC",200,50);
      textFont(font,16);
      text("Shift the arbitrary line AB to DC. Draw from A a C-line to the arbitrary point F;"
     + " connect F by a second C-line to D. "
