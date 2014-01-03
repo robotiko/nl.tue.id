@@ -1,17 +1,17 @@
 ---
 
- Po: _Okay. So like, Oogway was just a crazy old turtle after all?_
+Po: _Okay. So like, Oogway was just a crazy old turtle after all?_
 
- Shifu: _No. Oogway was wiser than us all._
+Shifu: _No. Oogway was wiser than us all._
 
 ---
 
 Oogway, making ideas from the Turtle graphics available in Processing. Oogway is named after the master in the Kung Fu Panda (http://kungfupanda.wikia.com/wiki/Oogway)
 
 Oogway is free software: you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation, either version 3 of the License, or
- (at your option) any later version.
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
 Oogway is distributed in the hope that it will be useful,
  but WITHOUT ANY WARRANTY; without even the implied warranty of
