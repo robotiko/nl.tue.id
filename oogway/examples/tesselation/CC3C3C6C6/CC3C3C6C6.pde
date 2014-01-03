@@ -108,25 +108,6 @@ void drawPiece(float scale) {
   if(annotate) drawArrow(scale);
 }
 
-void cline(float x1, float y1, float x2, float y2, String svg){
-  o.pushState();
-  
-  float mx = (x1 + x2)/2;
-  float my = (y1 + y2)/2;
-  
-  o.setPosition(x1, y1);
-  float d = o.distance(mx, my);
-  o.setHeading(o.towards(mx, my));
-  o.beginPath(svg); o.forward(d); o.endPath();
-  
-  o.setPosition(x2, y2);
-  o.setHeading(o.towards(mx, my));
-  o.beginPath(svg); o.forward(d); o.endPath();  
- 
-  o.popState();
-  
-}
-
 void setOfSix(float scale){
   o.pushState();
   
@@ -166,67 +147,5 @@ void setOfSix(float scale){
   drawPiece(scale);
    
   o.popState();
-}
-
-void drawArrow(float scale){
-  pushStyle();
-  o.pushState();
-  fill(255,0,0);
-  o.setPenColor(255,0,0);
-  o.setPosition((Ax+Bx+Cx+Dx+Ex)/5, (Ay+By+Cy+Dy+Ey)/5);
-  o.setHeading(o.towards(Ax, Ay));
-  //o.backward(10*scale);
-  o.shift(o.towards(Ax, Ay), 10*scale);
-  o.left(135);
-  o.forward(4*scale);
-  o.backward(4*scale);
-  o.right(135);
-  o.forward(20*scale);
-  o.stamp(8*scale);  
-  o.popState();
-  popStyle();
-} 
-
-void drawIntro(){
-  pushStyle();
-     textFont(font,32);
-     fill(0);
-     text("No.13, Basic Type CC3C3C6C6",200,50);
-     textFont(font,16);
-     text("Turn the arbitrary line AC around A by 120 degrees into the position AB. "
-    + "Draw from B towards an arbitrary point D the arbitrary line BD "
-    + "and turn it around D in the same turning direction by 60 degrees in the position DE. "
-    + "Complete the figure by a C-line EC. "
-         , 200, 100,700,200);
-     text("Number of arbitrary lines: 3\nNetwork: 63333\n6 Positions."
-         , 650, 200, 700, 100); 
-  popStyle();
-}
-
-
-void drawPoints(){
-  pushStyle();
-  o.pushState();
-  textFont(font,16);
-  textAlign(CENTER, CENTER);
-  fill(255,0,55);
-  o.setPenColor(0,0,255);
-  
-  drawPoint("A", Ax, Ay, -15, 0);
-  drawPoint("B", Bx, By, -15, 0);  
-  drawPoint("C", Cx, Cy, 15, 0);  
-  drawPoint("D", Dx, Dy, 15, 0);  
-  drawPoint("E", Ex, Ey, 15, 0); 
-  
-  drawPoint("M", (Ex+Cx)/2, (Ey+Cy)/2, 15, 15);
-
-  ellipse(o.xcor(), o.ycor(), 10 , 10);
-  o.popState();
-  popStyle();
-}
-
-void drawPoint(String text, float x, float y, float a, float b){
-    ellipse(x, y, 10 , 10);
-    text(text, x+a, y + b);
 }
 
