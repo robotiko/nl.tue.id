@@ -35,6 +35,14 @@ import static processing.core.PApplet.*;
  * @author Loe Feijs
  * 
  */
+/**
+ * @author jhu
+ *
+ */
+/**
+ * @author jhu
+ *
+ */
 public class Oogway implements Cloneable, OConstants {
 
 	/** The PApplet to render to. */
@@ -109,12 +117,6 @@ public class Oogway implements Cloneable, OConstants {
 		dash = new ODash(applet);
 
 	}
-	
-	public void backward(float distance, String svg){
-	    beginPath(svg);
-	    backward(distance);
-	    endPath();
-	}
 
 	/**
 	 * Move Oogway backward.
@@ -123,22 +125,37 @@ public class Oogway implements Cloneable, OConstants {
 	 *            the distance
 	 */
 	public void backward(float distance) {
-		//forward(-distance); //this might cause problems;
-		if(distance < 0) {
-			System.err
-			.println("Oogway says: distance can not be negative!");
+		// forward(-distance); //this might cause problems;
+		if (distance < 0) {
+			System.err.println("Oogway says: distance can not be negative!");
 			return;
 		}
-		
+
 		left(180);
 		forward(distance);
 		right(180);
 	}
 
+	/**
+	 * @param distance
+	 * @param svg
+	 */
+	public void backward(float distance, String svg) {
+		beginPath(svg);
+		backward(distance);
+		endPath();
+	}
+
+	/**
+	 * 
+	 */
 	public void beginDash() {
 		trace = ODASH;
 	}
 
+	/**
+	 * @param pattern
+	 */
 	public void beginDash(float[] pattern) {
 		dash = new ODash(applet, pattern);
 		trace = ODASH;
@@ -201,9 +218,7 @@ public class Oogway implements Cloneable, OConstants {
 		backward(distance);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
+	/* (non-Javadoc)
 	 * @see java.lang.Object#clone()
 	 */
 	public Oogway clone() {
@@ -236,6 +251,44 @@ public class Oogway implements Cloneable, OConstants {
 		/* do not copy memories */
 		/* do not copy states */
 
+	}
+
+	/**
+	 * @param distance
+	 */
+	public void dashBackward(float distance) {
+		beginDash();
+		backward(distance);
+		endDash();
+	}
+
+	/**
+	 * @param distance
+	 * @param pattern
+	 */
+	public void dashBackward(float distance, float[] pattern) {
+		beginDash(pattern);
+		backward(distance);
+		endDash();
+	}
+
+	/**
+	 * @param distance
+	 */
+	public void dashForward(float distance) {
+		beginDash();
+		forward(distance);
+		endDash();
+	}
+
+	/**
+	 * @param distance
+	 * @param pattern
+	 */
+	public void dashForward(float distance, float[] pattern) {
+		beginDash(pattern);
+		forward(distance);
+		endDash();
 	}
 
 	/**
@@ -337,6 +390,9 @@ public class Oogway implements Cloneable, OConstants {
 
 	}
 
+	/**
+	 * 
+	 */
 	public void endDash() {
 		trace = OLINE;
 	}
@@ -386,12 +442,6 @@ public class Oogway implements Cloneable, OConstants {
 	public void fd(float distance) {
 		forward(distance);
 	}
-	
-	public void forward(float distance, String svg){
-	    beginPath(svg);
-	    forward(distance);
-	    endPath();
-	}
 
 	/**
 	 * Move Oogway forward.
@@ -400,10 +450,9 @@ public class Oogway implements Cloneable, OConstants {
 	 *            the distance
 	 */
 	public void forward(float distance) {
-		
-		if(distance < 0){
-			System.err
-			.println("Oogway says: distance can not be negative!");
+
+		if (distance < 0) {
+			System.err.println("Oogway says: distance can not be negative!");
 			return;
 		}
 
@@ -428,6 +477,12 @@ public class Oogway implements Cloneable, OConstants {
 		}
 
 		setPosition(x, y);
+	}
+
+	public void forward(float distance, String svg) {
+		beginPath(svg);
+		forward(distance);
+		endPath();
 	}
 
 	/**
@@ -456,6 +511,9 @@ public class Oogway implements Cloneable, OConstants {
 		return isDown;
 	}
 
+	/**
+	 * @return
+	 */
 	public boolean isReflecting() {
 		return reflect == -1;
 	}
@@ -481,6 +539,66 @@ public class Oogway implements Cloneable, OConstants {
 	}
 
 	/**
+	 * Mirror the position of Oogway over a line. <strong>This does not
+	 * draw</strong>.
+	 */
+	public void mirrorPosition(float x0, float y0, float x1, float y1) {
+		float dx, dy, a, b;
+		float x2, y2;
+
+		dx = x1 - x0;
+		dy = y1 - y0;
+
+		a = (dx * dx - dy * dy) / (dx * dx + dy * dy);
+		b = 2 * dx * dy / (dx * dx + dy * dy);
+
+		x2 = a * (xcor - x0) + b * (ycor - y0) + x0;
+		y2 = b * (xcor - x0) - a * (ycor - y0) + y0;
+
+		setPosition(x2, y2);
+	}
+
+	/**
+	 * @param distance
+	 */
+	public void pathBackward(float distance) {
+		beginPath();
+		backward(distance);
+		endPath();
+	}
+	
+	/**
+	 * 
+	 * @param distance
+	 * @param svg
+	 */
+
+	public void pathBackward(float distance, String svg) {
+		beginPath("svg");
+		backward(distance);
+		endPath();
+	}
+
+	/**
+	 * @param distance
+	 */
+	public void pathForward(float distance) {
+		beginPath();
+		forward(distance);
+		endPath();
+	}
+
+	/**
+	 * @param distance
+	 * @param svg
+	 */
+	public void pathForward(float distance, String svg) {
+		beginPath("svg");
+		forward(distance);
+		endPath();
+	}
+
+	/**
 	 * Pd.
 	 */
 	public void pd() {
@@ -503,6 +621,9 @@ public class Oogway implements Cloneable, OConstants {
 		isDown = true;
 	}
 
+	/**
+	 * @return
+	 */
 	public float penSize() {
 		return penSize();
 	}
@@ -533,34 +654,52 @@ public class Oogway implements Cloneable, OConstants {
 	}
 
 	/**
-	 * Remember.
+	 * 
 	 */
 	public void pushState() {
 		states.add(clone());
 	}
 
+	/**
+	 * @param c
+	 */
 	public void recall(char c) {
 		recall(String.valueOf(c));
 	}
 
+	/**
+	 * @param i
+	 */
 	public void recall(int i) {
 		recall(String.valueOf(i));
 	}
 
+	/**
+	 * @param s
+	 */
 	public void recall(String s) {
 		if (memories.containsKey(s)) {
 			copy(memories.get(s));
 		}
 	}
 
+	/**
+	 * @param c
+	 */
 	public void remember(char c) {
 		remember(String.valueOf(c));
 	}
 
+	/**
+	 * @param i
+	 */
 	public void remember(int i) {
 		remember(String.valueOf(i));
 	}
 
+	/**
+	 * @param s
+	 */
 	public void remember(String s) {
 		memories.put(s, clone());
 	}
@@ -580,6 +719,9 @@ public class Oogway implements Cloneable, OConstants {
 	 * 
 	 * @param angle
 	 *            the angle
+	 */
+	/**
+	 * @param angle
 	 */
 	public void rt(float angle) {
 		right(angle);
@@ -620,54 +762,19 @@ public class Oogway implements Cloneable, OConstants {
 		penColor = applet.color(r, g, b);
 	}
 
+	/**
+	 * @param size
+	 */
 	public void setPenSize(float size) {
 		penSize = size;
 	}
 
+	/**
+	 * @param x
+	 * @param y
+	 */
 	public void setPos(float x, float y) {
 		setPosition(x, y);
-	}
-
-	/**
-	 * Shift the Oogway along an absolute angle for a certain distance.
-	 * <strong>This does not draw</strong>.
-	 * 
-	 * @param angle
-	 *            an absolute angle for shifting.
-	 * @param distance
-	 *            distance for shifting.
-	 */
-	public void shift(float angle, float distance) {
-		setPosition(xcor + distance * cos(radians(angle)), ycor + distance
-				* sin(radians(angle)));
-	}
-
-	/**
-	 * Shift the Oogway along a a relative angle towards right for a certain distance.
-	 * <strong>This does not draw</strong>.
-	 * 
-	 * @param angle
-	 *            a relative angle for shifting.
-	 * @param distance
-	 *            distance for shifting.
-	 */
-	
-	public void shiftRight(float angle, float distance){
-	   shift(heading + reflect * angle, distance);
-	}
-	
-	/**
-	 * Shift the Oogway along a a relative angle towards left for a certain distance.
-	 * <strong>This does not draw</strong>.
-	 * 
-	 * @param angle
-	 *            a relative angle for shifting.
-	 * @param distance
-	 *            distance for shifting.
-	 */
-	
-	public void shiftLeft(float angle, float distance){
-		shift(heading - reflect * angle, distance);
 	}
 
 	/**
@@ -685,34 +792,79 @@ public class Oogway implements Cloneable, OConstants {
 	}
 
 	/**
-	 * Mirror the position of Oogway over a line. <strong>This does not
-	 * draw</strong>.
+	 * @param svg
 	 */
-	public void mirrorPosition(float x0, float y0, float x1, float y1) {
-		float dx, dy, a, b;
-		float x2, y2;
-
-		dx = x1 - x0;
-		dy = y1 - y0;
-
-		a = (dx * dx - dy * dy) / (dx * dx + dy * dy);
-		b = 2 * dx * dy / (dx * dx + dy * dy);
-
-		x2 = a * (xcor - x0) + b * (ycor - y0) + x0;
-		y2 = b * (xcor - x0) - a * (ycor - y0) + y0;
-
-		setPosition(x2, y2);
-	}
-
 	public void setStamp(String svg) {
 		this.oogwayShapeSVG = applet.loadShape(svg);
 		this.oogwayShape = OSVG;
 	}
 
+	/**
+	 * Shift the Oogway along an absolute angle for a certain distance.
+	 * <strong>This does not draw</strong>.
+	 * 
+	 * @param angle
+	 *            an absolute angle for shifting.
+	 * @param distance
+	 *            distance for shifting.
+	 */
+	public void shift(float angle, float distance) {
+		setPosition(xcor + distance * cos(radians(angle)), ycor + distance
+				* sin(radians(angle)));
+	}
+
+	/**
+	 * @param distance
+	 */
+	public void shiftBackward(float distance) {
+		shiftRight(180, distance);
+	}
+
+	/**
+	 * @param distance
+	 */
+	public void shiftForward(float distance) {
+		shiftRight(0, distance);
+	}
+	
+	/**
+	 * Shift the Oogway along a a relative angle towards left for a certain
+	 * distance. <strong>This does not draw</strong>.
+	 * 
+	 * @param angle
+	 *            a relative angle for shifting.
+	 * @param distance
+	 *            distance for shifting.
+	 */
+
+	public void shiftLeft(float angle, float distance) {
+		shift(heading - reflect * angle, distance);
+	}
+
+	/**
+	 * Shift the Oogway along a a relative angle towards right for a certain
+	 * distance. <strong>This does not draw</strong>.
+	 * 
+	 * @param angle
+	 *            a relative angle for shifting.
+	 * @param distance
+	 *            distance for shifting.
+	 */
+
+	public void shiftRight(float angle, float distance) {
+		shift(heading + reflect * angle, distance);
+	}
+
+	/**
+	 * 
+	 */
 	public void stamp() {
 		stamp(20);
 	}
 
+	/**
+	 * @param size
+	 */
 	public void stamp(float size) {
 		stamp(size, size);
 	}
@@ -801,5 +953,4 @@ public class Oogway implements Cloneable, OConstants {
 	public float ycor() {
 		return ycor;
 	}
-
 }
