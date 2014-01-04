@@ -72,14 +72,14 @@ void drawPiece(float scale) {
   //AB
   o.remember("A");
   Ax = o.xcor(); Ay = o.ycor();
-  o.beginPath("AB.svg");  o.forward(AB*scale);  o.endPath();
+  o.pathForward(AB*scale, "AB.svg");
   Bx = o.xcor(); By = o.ycor();
   
   //DC
   o.recall("A");
   o.shiftLeft(angleBAD, AD*scale);
   Dx = o.xcor(); Dy = o.ycor();
-  o.beginPath("AB.svg");  o.forward(AB*scale);  o.endPath();
+  o.pathForward(AB*scale, "AB.svg");
   Cx = o.xcor(); Cy = o.ycor();
   
   //Draw another arbitrary line from A to D and shift it into the  
@@ -88,13 +88,13 @@ void drawPiece(float scale) {
   //AD 
   o.setPosition(Ax, Ay);
   o.setHeading(o.towards(Dx, Dy));
-  o.beginPath("AD.svg");  o.forward(o.distance(Dx, Dy));  o.endPath(); 
+  o.pathForward(o.distance(Dx, Dy), "AD.svg"); 
 
   
   //BC
   o.setPosition(Bx, By);
   o.setHeading(o.towards(Cx, Cy));
-  o.beginPath("AD.svg");  o.forward(o.distance(Cx, Cy));  o.endPath(); 
+  o.pathForward(o.distance(Cx, Cy), "AD.svg"); 
 
   o.popState();
   

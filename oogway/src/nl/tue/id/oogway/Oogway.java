@@ -35,14 +35,7 @@ import static processing.core.PApplet.*;
  * @author Loe Feijs
  * 
  */
-/**
- * @author jhu
- *
- */
-/**
- * @author jhu
- *
- */
+
 public class Oogway implements Cloneable, OConstants {
 
 	/** The PApplet to render to. */
@@ -574,7 +567,7 @@ public class Oogway implements Cloneable, OConstants {
 	 */
 
 	public void pathBackward(float distance, String svg) {
-		beginPath("svg");
+		beginPath(svg);
 		backward(distance);
 		endPath();
 	}
@@ -593,7 +586,7 @@ public class Oogway implements Cloneable, OConstants {
 	 * @param svg
 	 */
 	public void pathForward(float distance, String svg) {
-		beginPath("svg");
+		beginPath(svg);
 		forward(distance);
 		endPath();
 	}
@@ -953,4 +946,5 @@ public class Oogway implements Cloneable, OConstants {
 	public float ycor() {
 		return ycor;
 	}
+	
 }

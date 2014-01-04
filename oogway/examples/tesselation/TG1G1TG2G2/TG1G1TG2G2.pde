@@ -27,27 +27,28 @@ float vDistance, vHeading;
 void setup() {
   size(XSIZE, YSIZE);
   o = new Oogway(this);
-  noLoop(); smooth();
+  noLoop(); 
+  smooth();
   beginRecord(PDF, "TG1G1TG2G2" + (annotate?"_Annotated.pdf":".pdf"));
   o.setPenColor(0);
   o.setPenSize(2);
-  if(annotate)font = createFont("Comic Sans MS",32); 
+  if (annotate)font = createFont("Comic Sans MS", 32);
 }
 
 void draw() {
   background(255);
   // if(annotate) showGrid();
-   
+
   o.left(15);
-  
+
   o.setPosition(600, 450);
   tesselate(0.6);
 
   o.setPosition(250, 600);
   drawPiece(1.5);
-  
-  if(annotate) drawPoints();
-  if(annotate) drawIntro();
+
+  if (annotate) drawPoints();
+  if (annotate) drawIntro();
 
   endRecord();
 }
@@ -70,81 +71,87 @@ void tesselate(float scale) {
 
 void drawPiece(float scale) {
   o.pushState();
-  
+
   //Shift the arbitrary line AB to DC. 
-  
+
   //AB
   o.remember("A");
-  Ax = o.xcor(); Ay = o.ycor();
-  o.beginPath("AB.svg"); o.forward(AB*scale); o.endPath();
+  Ax = o.xcor(); 
+  Ay = o.ycor();
+  o.pathForward(AB*scale, "AB.svg"); 
   o.remember("B");
-  Bx = o.xcor(); By = o.ycor();
- 
+  Bx = o.xcor(); 
+  By = o.ycor();
+
   //DC
   o.recall("A");
   o.shiftLeft(angleBAD, AD*scale);
-  Dx = o.xcor(); Dy = o.ycor();
-  o.beginPath("AB.svg"); o.forward(AB*scale); o.endPath();
-  Cx = o.xcor(); Cy = o.ycor();
- 
+  Dx = o.xcor(); 
+  Dy = o.ycor();
+  o.pathForward(AB*scale, "AB.svg"); 
+  Cx = o.xcor(); 
+  Cy = o.ycor();
+
   //Connect A to a point E by an arbitrary line and glide-reflect AE towards ED. 
-  
+
   //AE
   float AE = (AD/2) / cos(radians(angleBAE-angleBAD));
   o.recall("A");
   o.left(angleBAE);
-  o.beginPath("AE.svg"); o.forward(AE*scale); o.endPath();
-  Ex = o.xcor(); Ey = o.ycor();
- 
+  o.pathForward(AE*scale, "AE.svg");
+  Ex = o.xcor(); 
+  Ey = o.ycor();
+
   //ED
   o.setHeading(o.towards(Dx, Dy));
   o.beginReflection();
-  o.beginPath("AE.svg"); o.forward(o.distance(Dx, Dy)); o.endPath();   
+  o.pathForward(o.distance(Dx, Dy), "AE.svg");    
   o.endReflection();
-  
+
   //Complete the figure by another pair of glide-reflected and connected lines BF, FC
-  
+
   //BF
   float BF = (AD/2) / cos(radians(angleABF-(180-angleBAD)));
   o.recall("B");
   o.left(180-angleABF);
-  o.beginPath("BF.svg"); o.forward(BF*scale); o.endPath();
-  Fx = o.xcor(); Fy = o.ycor();
-  
+  o.pathForward(BF*scale, "BF.svg");
+  Fx = o.xcor(); 
+  Fy = o.ycor();
+
   //FC
   o.setHeading(o.towards(Cx, Cy));
   o.beginReflection();
-  o.beginPath("BF.svg"); o.forward(o.distance(Cx, Cy)); o.endPath();   
+  o.pathForward(o.distance(Cx, Cy), "BF.svg");
   o.endReflection();
-     
+
   o.popState();
-  
-  if(annotate) drawArrow(scale);
+
+  if (annotate) drawArrow(scale);
 }
 
 
-void groupPositions(float scale){
+void groupPositions(float scale) {
   o.pushState();
 
   drawPiece(scale);
   float _Ax = Ax, _Ay = Ay;
-  
+
   vHeading = 180 + o.towards(Dx, Dy);
   vDistance = o.distance(Dx, Dy);
-  
+
   o.setPosition(Fx, Fy);
   o.setHeading(o.towards(Cx, Cy));
   o.right(angleABF);
-  o.up(); o.forward(AB*scale); o.down();
+  o.shiftForward(AB*scale); 
   o.right(180);
   o.beginReflection(); 
   drawPiece(scale);
   o.endReflection();
-  
+
   o.setPosition(_Ax, _Ay);
   hHeading = o.towards(Ex, Ey);
   hDistance = o.distance(Ex, Ey);
-  
+
   o.popState();
 }
 

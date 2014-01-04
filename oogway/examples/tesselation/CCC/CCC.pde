@@ -23,26 +23,27 @@ float vDistance, vHeading;
 void setup() {
   size(XSIZE, YSIZE);
   o = new Oogway(this);
-  noLoop(); smooth();
+  noLoop(); 
+  smooth();
   beginRecord(PDF, "CCC" + (annotate?"_Annotated.pdf":".pdf"));
   o.setPenColor(0);
   o.setPenSize(2);
-  if(annotate) font = createFont("Comic Sans MS",32); 
+  if (annotate) font = createFont("Comic Sans MS", 32);
 }
 
 void draw() {
   background(255);
-  
+
   o.right(90);
-  
+
   o.setPosition(600, 280);
   tesselate(1);
 
   o.setPosition(200, 330);
   drawPiece(3);
-  
-  if(annotate) drawPoints();
-  if(annotate) drawIntro();
+
+  if (annotate) drawPoints();
+  if (annotate) drawIntro();
 
   endRecord();
 }
@@ -65,47 +66,49 @@ void tesselate(float scale) {
 
 void drawPiece(float scale) {
   o.pushState();
-  
+
   //Let AB be a C-line
   o.remember("A");
-  Ax=o.xcor(); Ay = o.ycor();
-  o.up(); o.forward(AB*scale); o.down();
-  Bx=o.xcor(); By = o.ycor();
+  Ax=o.xcor(); 
+  Ay = o.ycor();
+  o.shiftForward(AB*scale);
+  Bx=o.xcor(); 
+  By = o.ycor();
   cline(Ax, Ay, Bx, By, "AM1.svg");
-  
+
   //Draw another C-line from A to C
   o.recall("A");
   o.left(angleBAC);
-  o.up(); o.forward(AC*scale); o.down();
-  Cx=o.xcor(); Cy = o.ycor();
+  o.shiftForward(AC*scale);
+  Cx=o.xcor(); 
+  Cy = o.ycor();
   cline(Ax, Ay, Cx, Cy, "AM3.svg");
-  
+
   //Draw a third C-line from B to C
   cline(Bx, By, Cx, Cy, "BM2.svg");
-  
+
   o.popState();
-  
-  if(annotate) drawArrow(scale);
+
+  if (annotate) drawArrow(scale);
 }
 
-void groupPositions(float scale){
+void groupPositions(float scale) {
   o.pushState();
-  
+
   drawPiece(scale);
-  
+
   hHeading = o.towards(Cx, Cy);
   hDistance = o.distance(Cx, Cy);
-  
+
   vHeading = o.towards(Bx, By);
   vDistance = o.distance(Bx, By);
-  
+
   o.setPosition(Bx, By);
   o.left(180);
   drawPiece(scale);
 
   o.popState();
 }
-
 
 
 

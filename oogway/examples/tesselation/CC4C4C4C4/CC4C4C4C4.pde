@@ -23,26 +23,27 @@ float vDistance, vHeading;
 void setup() {
   size(XSIZE, YSIZE);
   o = new Oogway(this);
-  noLoop(); smooth();
+  noLoop(); 
+  smooth();
   beginRecord(PDF, "CC4C4C4C4" + (annotate?"_Annotated.pdf":".pdf"));
   o.setPenColor(0);
   o.setPenSize(2);
-  if(annotate)font = createFont("Comic Sans MS",32); 
+  if (annotate)font = createFont("Comic Sans MS", 32);
 }
 
 void draw() {
   background(255);
-  
+
   o.right(45);
-  
+
   o.setPosition(650, 450);
   tesselate(0.7);
 
   o.setPosition(300, 350);
   drawPiece(1.5);
-  
-  if(annotate) drawPoints();
-  if(annotate) drawIntro();
+
+  if (annotate) drawPoints();
+  if (annotate) drawIntro();
 
   endRecord();
 }
@@ -65,71 +66,75 @@ void tesselate(float scale) {
 
 void drawPiece(float scale) {
   o.pushState();
-  
+
   //Turn the arbitrary line AB around A by 90 Degrees into the position AC. 
-  
+
   //AB
   o.remember("A");
-  Ax = o.xcor(); Ay = o.ycor();
-  o.forward(AB*scale, "AB.svg"); o.endPath();
-  Bx = o.xcor(); By = o.ycor();
-  
+  Ax = o.xcor(); 
+  Ay = o.ycor();
+  o.forward(AB*scale, "AB.svg"); 
+  o.endPath();
+  Bx = o.xcor(); 
+  By = o.ycor();
+
   //AC
   o.recall("A");
   o.right(90);
-  o.beginPath("AB.svg"); o.forward(AB*scale); o.endPath();
-  Cx = o.xcor(); Cy = o.ycor();
-  
+  o.pathForward(AB*scale, "AB.svg");
+  Cx = o.xcor(); 
+  Cy = o.ycor();
+
   // Draw another arbitrary line from C to the arbitrary point D
   // and turn it 90 degrees into the position DE.
-  
+
   //CD
   o.left(180-angleACD);
-  o.beginPath("CD.svg"); o.forward(CD*scale); o.endPath();
-  Dx = o.xcor(); Dy = o.ycor();
+  o.pathForward(CD*scale, "CD.svg");
+  Dx = o.xcor(); 
+  Dy = o.ycor();
 
   //DE
   o.left(90);
-  o.up(); o.forward(CD*scale); o.down();
-  Ex = o.xcor(); Ey = o.ycor();
-  o.beginPath("CD.svg"); o.backward(CD*scale); o.endPath();  
+  o.shiftForward(CD*scale);
+  Ex = o.xcor(); 
+  Ey = o.ycor();
+  o.pathBackward(CD*scale, "CD.svg");  
 
   //Complete the figure by a C-line EB.
-  
+
   //EB
   cline(Ex, Ey, Bx, By, "EM.svg");
-      
+
   o.popState();
-  
-  if(annotate) drawArrow(scale);
+
+  if (annotate) drawArrow(scale);
 }
 
 
-void groupPositions(float scale){
+void groupPositions(float scale) {
   o.pushState();
-  
+
   drawPiece(scale);
-  
+
   float Mx = (Ex+Bx)/2, My = (Ey+By)/2;
   vHeading = o.towards(Mx, My);
   vDistance = 2 * o.distance(Mx, My);  
-  
+
   o.right(90);
   drawPiece(scale);
-   
+
 
   o.right(90);
   drawPiece(scale);
 
   o.right(90);
   drawPiece(scale);
-  
-  Mx = (Ex+Bx)/2; My = (Ey+By)/2;
+
+  Mx = (Ex+Bx)/2; 
+  My = (Ey+By)/2;
   hHeading = o.towards(Mx, My);
   hDistance = 2 * o.distance(Mx, My);  
-  
+
   o.popState();
 }
-
-
-

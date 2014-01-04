@@ -71,20 +71,20 @@ void drawPiece(float scale) {
   //arbitrary line AB
   o.remember("A");
   Ax = o.xcor(); Ay = o.ycor();
-  o.beginPath("AB.svg");  o.forward(AB*scale);  o.endPath();
+  o.pathForward(AB*scale, "AB.svg");
   Bx = o.xcor(); By = o.ycor();
   
   //shift AB to DC
   o.recall("A");
   o.shiftLeft(angleBAD, AD*scale);
   Dx = o.xcor(); Dy = o.ycor();
-  o.beginPath("AB.svg");  o.forward(AB*scale);  o.endPath();
+  o.pathForward(AB*scale, "AB.svg");
   Cx = o.xcor(); Cy = o.ycor();
   
   //arbitrary line AF
   o.recall("A");
   o.left(angleBAF);
-  o.beginPath("AF.svg");  o.forward(AF*scale);  o.endPath();
+  o.pathForward(AF*scale, "AF.svg");
   Fx = o.xcor(); Fy = o.ycor();
   
   //Shift AF to EC (Translation vector AE)
@@ -94,18 +94,18 @@ void drawPiece(float scale) {
   o.shift(degreeFC, distanceFC);
   Ex = o.xcor(); Ey = o.ycor();
   o.setHeading(o.towards(Cx, Cy));
-  o.beginPath("AF.svg");  o.forward(o.distance(Cx, Cy));  o.endPath();  
+  o.pathForward(o.distance(Cx, Cy), "AF.svg");  
   
   //draw BE
   o.setPosition(Bx, By);
   o.setHeading(o.towards(Ex, Ey));
-  o.beginPath("BE.svg");  o.forward(o.distance(Ex, Ey));  o.endPath(); 
+  o.pathForward(o.distance(Ex, Ey), "BE.svg"); 
 
   
   //Move BE to FD (translation vector BF)
   o.setPosition(Fx, Fy);
   o.setHeading(o.towards(Dx, Dy));
-  o.beginPath("BE.svg");  o.forward(o.distance(Dx, Dy));  o.endPath(); 
+  o.pathForward(o.distance(Dx, Dy), "BE.svg"); 
 
   o.popState();
   
