@@ -76,7 +76,7 @@ void drawPiece(float scale) {
   
   //shift AB to DC
   o.recall("A");
-  o.shift(o.heading()-angleBAD, AD*scale);
+  o.shiftLeft(angleBAD, AD*scale);
   Dx = o.xcor(); Dy = o.ycor();
   o.beginPath("AB.svg");  o.forward(AB*scale);  o.endPath();
   Cx = o.xcor(); Cy = o.ycor();

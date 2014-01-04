@@ -629,7 +629,7 @@ public class Oogway implements Cloneable, OConstants {
 	}
 
 	/**
-	 * Shilft the Oogway along an absolute angle for a certain distance.
+	 * Shift the Oogway along an absolute angle for a certain distance.
 	 * <strong>This does not draw</strong>.
 	 * 
 	 * @param angle
@@ -640,6 +640,34 @@ public class Oogway implements Cloneable, OConstants {
 	public void shift(float angle, float distance) {
 		setPosition(xcor + distance * cos(radians(angle)), ycor + distance
 				* sin(radians(angle)));
+	}
+
+	/**
+	 * Shift the Oogway along a a relative angle towards right for a certain distance.
+	 * <strong>This does not draw</strong>.
+	 * 
+	 * @param angle
+	 *            a relative angle for shifting.
+	 * @param distance
+	 *            distance for shifting.
+	 */
+	
+	public void shiftRight(float angle, float distance){
+	   shift(heading + reflect * angle, distance);
+	}
+	
+	/**
+	 * Shift the Oogway along a a relative angle towards left for a certain distance.
+	 * <strong>This does not draw</strong>.
+	 * 
+	 * @param angle
+	 *            a relative angle for shifting.
+	 * @param distance
+	 *            distance for shifting.
+	 */
+	
+	public void shiftLeft(float angle, float distance){
+		shift(heading - reflect * angle, distance);
 	}
 
 	/**

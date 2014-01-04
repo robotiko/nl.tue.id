@@ -31,7 +31,7 @@ void setup() {
 
 void draw() {
   background(255);
-  showGrid();
+  //showGrid();
   
   o.left(15); 
   
@@ -77,7 +77,7 @@ void drawPiece(float scale) {
   
   //DC
   o.recall("A");
-  o.shift(o.heading()-angleBAD, AD*scale);
+  o.shiftLeft(angleBAD, AD*scale);
   Dx = o.xcor(); Dy = o.ycor();
   o.beginPath("AB.svg");  o.forward(AB*scale);  o.endPath();
   Cx = o.xcor(); Cy = o.ycor();
