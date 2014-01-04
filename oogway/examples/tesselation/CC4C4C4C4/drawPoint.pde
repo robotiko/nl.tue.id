@@ -15,7 +15,7 @@ void drawPoints(){
   
   drawPoint("M", (Ex+Bx)/2, (Ey+By)/2, 15, 15);  
  
-  ellipse(o.xcor(), o.ycor(), 10 , 10);
+
   o.popState();
   popStyle();
 }

@@ -19,7 +19,7 @@ void drawPoints(){
   drawPoint("M3", (Bx+Ex)/2, (By+Ey)/2, 15, -20);  
   drawPoint("M4", (Cx+Ex)/2, (Cy+Ey)/2, 0, -20);  
  
-  ellipse(o.xcor(), o.ycor(), 10 , 10);
+
   o.popState();
   popStyle();
 }
