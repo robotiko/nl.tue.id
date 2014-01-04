@@ -802,6 +802,11 @@ public class Oogway implements Cloneable, OConstants {
 	 *            distance for shifting.
 	 */
 	public void shift(float angle, float distance) {
+		// -distance  might cause problems;
+		if (distance < 0) {
+			System.err.println("Oogway says: distance can not be negative!");
+			return;
+		}
 		setPosition(xcor + distance * cos(radians(angle)), ycor + distance
 				* sin(radians(angle)));
 	}

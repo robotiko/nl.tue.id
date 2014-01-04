@@ -4,14 +4,14 @@ import nl.tue.id.oogway.*;
 int XSIZE=int(3.6*297);
 int YSIZE=int(3.6*210);
 
-//Variables defining the shape
+boolean annotate = true;
+
+//sides and angles defining the shape
 float AB = 100;
 float AD = 125;
 float angleBAD = 75;
 float angleBAE = 105;
 float angleABF = 135;
-
-boolean annotate = true;
 
 Oogway o;
 PFont font;
@@ -20,7 +20,7 @@ PFont font;
 float Ax, Ay, Bx, By, Cx, Cy, Dx, Dy, Ex, Ey, Fx, Fy;
 
 
-//for tesselation the sets
+////for tesselating the groups of the pieces
 float hDistance, hHeading;
 float vDistance, vHeading;
 
@@ -48,6 +48,7 @@ void draw() {
   drawPiece(1.5);
 
   if (annotate) drawPoints();
+  if (annotate) drawAxes();
   if (annotate) drawIntro();
 
   endRecord();

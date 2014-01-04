@@ -6,17 +6,18 @@ int YSIZE=int(3.6*210);
 
 boolean annotate = true;
 
+//sides and angles defining the shape
+float AB = 100;
+float angleABC = 88;
+float angleBCD = 78;
+
 Oogway o;
 PFont font;
 
 //latest vertex coordinates
 float Ax, Ay, Bx, By, Cx, Cy, Dx, Dy;
 
-float AB = 100;
-float angleABC = 88;
-float angleBCD = 78;
-
-//for tesselation the sets
+////for tesselating the groups of the pieces
 float hDistance, hHeading;
 float vDistance, vHeading;
 
@@ -37,13 +38,14 @@ void draw() {
 
   o.left(80);
 
-  o.setPosition(650, 400);
+  o.setPosition(650, 420);
   tesselate(0.9);
 
-  o.setPosition(350, 600);
+  o.setPosition(350, 620);
   drawPiece(2);
 
   if (annotate) drawPoints();
+  if (annotate) drawAxes();
   if (annotate) drawIntro();
 
   endRecord();

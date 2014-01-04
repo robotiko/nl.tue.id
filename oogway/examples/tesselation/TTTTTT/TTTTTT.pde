@@ -6,18 +6,20 @@ int YSIZE=int(3.6*210);
 
 boolean annotate = true;
 
-Oogway o;
-PFont font;
-
-//latest vertex coordinates
-float Ax, Ay, Bx, By, Cx, Cy, Dx, Dy, Ex, Ey, Fx, Fy;
+//sides and angles defining the shape
 float AB = 100;
 float AF = 95;
 float AD = 125;
 float angleBAD = 75;
 float angleBAF = 90;
 
-//for tesselation the sets
+Oogway o;
+PFont font;
+
+//latest vertex coordinates
+float Ax, Ay, Bx, By, Cx, Cy, Dx, Dy, Ex, Ey, Fx, Fy;
+
+////for tesselating the groups of the pieces
 float hDistance, hHeading;
 float vDistance, vHeading;
 

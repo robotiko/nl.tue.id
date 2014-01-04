@@ -1,21 +1,23 @@
 
-void drawArrow(float scale){
-  pushStyle();
+void drawArrow(float scale) {
   o.pushState();
-  fill(255,0,0);
-  o.setPenColor(255,0,0);
-  o.setPosition((Ax+Bx+Cx+Dx+Ex)/5, (Ay+By+Cy+Dy+Ey)/5);
-  o.setHeading(o.towards(Ax, Ay));
-  //o.backward(10*scale);
-  o.shift(o.towards(Ax, Ay), 10*scale);
-  o.left(135);
-  o.forward(4*scale);
-  o.backward(4*scale);
-  o.right(135);
-  o.forward(20*scale);
-  o.stamp(8*scale);  
-  o.popState();
-  popStyle();
-} 
 
+  //o.setPosition((Ax+Bx+Cx+Dx+Ex+Fx)/6, (Ay+By+Cy+Dy+Ey+Fy)/6);
+  o.setPosition((Ax+Bx+Cx+Dx+Ex)/5, (Ay+By+Cy+Dy+Ey)/5);
+  //o.setPosition((Ax+Bx+Cx+Dx)/4, (Ay+By+Cy+Dy)/4);
+  //o.setPosition((Ax+Bx+Cx)/3, (Ay+By+Cy)/3);
+
+  o.setHeading(o.towards(Ax, Ay));
+  o.shiftForward(o.distance(Ax, Ay)/2);
+  if (o.isReflecting()) {
+    o.setStamp("arrow-reflected.svg");
+  }
+  else {
+    o.setStamp("arrow.svg");
+  }
+  
+  o.stamp(24*scale);
+
+  o.popState();
+} 
 

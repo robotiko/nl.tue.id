@@ -6,6 +6,8 @@ int YSIZE=int(3.6*210);
 
 boolean annotate = true;
 
+//sides and angles defining the shape
+
 Oogway o;
 PFont font;
 
@@ -17,7 +19,7 @@ float CD = 60;
 float angleACD = 130;
 
 
-//for tesselation the sets
+////for tesselating the groups of the pieces
 float hDistance, hHeading;
 float vDistance, vHeading;
 
